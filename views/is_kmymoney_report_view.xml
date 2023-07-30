@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="is_kmymoney_report_form_view" model="ir.ui.view">
+        <field name="name">is.kmymoney.report.form.view</field>
+        <field name="model">is.kmymoney.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="account1_id"/>
+                        <field name="post_date"/>
+                        <field name="partner_id"/>
+                        <field name="account2_id"/>
+                        <field name="value"/>
+                        <field name="cumul"/>
+                        <field name="memo"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_kmymoney_report_tree_view" model="ir.ui.view">
+        <field name="name">is.kmymoney.report.tree.view</field>
+        <field name="model">is.kmymoney.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="account1_id"/>
+                <field name="post_date"/>
+                <field name="partner_id"/>
+                <field name="account2_id"/>
+                <field name="value" sum="Total"/>
+                <field name="cumul"/>
+                <field name="memo"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_kmymoney_report_view_filter" model="ir.ui.view">
+        <field name="name">is.kmymoney.report.view.filter</field>
+        <field name="model">is.kmymoney.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account1_id"/>
+                <field name="partner_id"/>
+                <field name="account2_id"/>
+                <field name="memo"/>
+           </search>
+        </field>
+    </record>
+    <record id="is_kmymoney_report_pivot" model="ir.ui.view">
+        <field name="name">is_kmymoney_report_pivot</field>
+        <field name="model">is.kmymoney.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="account1_id" type="row"/>
+                <field name="post_date"   type="col" interval="year"/>
+                <field name="value"       type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_kmymoney_report_graph" model="ir.ui.view">
+        <field name="name">is_kmymoney_report_graph</field>
+        <field name="model">is.kmymoney.report</field>
+        <field name="arch" type="xml">
+            <!-- orientation="vertical"  -->
+            <graph type="bar" stacked="False">
+                <field name="account1_id" type="row"/>
+                <field name="value"       type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_kmymoney_report_action" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.kmymoney.report</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="is_kmymoney_report_view_filter"/>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

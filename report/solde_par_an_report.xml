@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="kmn_solde_par_an_report_tree" model="ir.ui.view">
+        <field name="name">kmn_solde_par_an_report_tree</field>
+        <field name="model">kmn.solde.par.an.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="compte"/>
+                <field name="annee"/>
+                <field name="solde"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kmn_solde_par_an_report_pivot" model="ir.ui.view">
+        <field name="name">kmn_solde_par_an_report_pivot</field>
+        <field name="model">kmn.solde.par.an.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="compte" type="row"/>
+                <field name="annee"  type="col"/>
+                <field name="solde"  type="measure"/>
+            </pivot>
+        </field>
+   </record>
+   <record id="kmn_solde_par_an_report_chart" model="ir.ui.view">
+        <field name="name">kmn_solde_par_an_report_chart</field>
+        <field name="model">kmn.solde.par.an.report</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="annee"  type="col" interval="year"/>
+                <field name="compte" type="row"/>
+                <field name="solde"  type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="kmn_solde_par_an_report_action" model="ir.actions.act_window">
+        <field name="name">Solde par an</field>
+        <field name="res_model">kmn.solde.par.an.report</field>
+        <field name="view_mode">graph,pivot,tree</field>
+    </record>
+</data>
+</odoo>

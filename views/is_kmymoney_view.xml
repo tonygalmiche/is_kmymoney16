@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="kmn_account_move_tree_view_editable" model="ir.ui.view">
+        <field name="name">kmn.account.move.tree.view.editable</field>
+        <field name="model">kmn.account.move</field>
+        <field name="arch" type="xml">
+            <tree string="Mouvements" editable="top" decoration-danger="state=='brouillon'">
+                <button class="oe_inline oe_stat_button" title="Détail du mouvement"  name= "action_detail_mouvement" type="object" icon="fa-search-plus"/>
+                <field name="post_date" />
+                <button title="Opérations sur ce Tiers" name= "action_operations_tiers" type="object" icon="fa-list" />
+                <field name="payee_id" widget="many2one_clickable"/>
+                <button title="Opérations sur ce compte" name= "action_operations_compte" type="object" icon="fa-list"/>
+                <field name="account_id" required="1" widget="many2one_clickable"/>
+                <field name="debit"  sum="Total"/>
+                <field name="credit" sum="Total"/>
+                <field name="solde"                />
+                <field name="memo" />
+                <field name="date_modification" readonly="1" />
+                <field name="state" />
+                <button title="Valider" name= "action_valide_state" type="object" icon="fa-check "  attrs="{'invisible':[('state','=','valide')]}"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--  kmn_accounts -->
+    <record id="kmn_accounts_tree_view" model="ir.ui.view">
+        <field name="name">kmn.accounts.tree.view</field>
+        <field name="model">kmn.accounts</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <button title="Opérations sur ce compte" name= "operations_compte_action" type="object" icon="fa-list"/>
+                <field name="institution_id" />
+                <field name="parent_id" />
+                <field name="account_number" />
+                <field name="account_type_id" />
+                <field name="bal_solde" sum="Total"/>
+                <field name="nb" sum="Total"/>
+                <field name="percent_all_account" widget="progressbar" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="kmn_accounts_from_view" model="ir.ui.view">
+        <field name="name">kmn.accounts.form.view</field>
+        <field name="model">kmn.accounts</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_right oe_button_box" name="buttons">
+                         <button 
+                            class="oe_inline oe_stat_button"
+                            name= "operations_compte_action"
+                            type="object" icon="fa-list"
+                        >
+                            <field string="Opérations" name="nb" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" class="oe_inline" readonly="0"/>
+                    </h1>
+                    <group>
+                        <field name="institution_id" />
+                        <field name="parent_id" />
+                        <field name="account_number" />
+                        <field name="account_type_id" />
+                        <field name="active" />
+                        <field name="bal_solde" />
+                        <field name="last_post_date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="kmn_accounts_view_filter" model="ir.ui.view">
+        <field name="name">kmn.accounts.view.filter</field>
+        <field name="model">kmn.accounts</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="institution_id" />
+                <field name="parent_id" />
+                <field name="account_number" />
+                <field name="account_type_id" />
+           </search>
+        </field>
+    </record>
+
+    <record id="kmn_accounts_action" model="ir.actions.act_window">
+        <field name="name">Comptes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kmn.accounts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="kmn_accounts_view_filter"/>
+        <field name="domain">[('institution_id','!=',False)]</field>
+
+
+    </record>
+
+
+    <record id="kmn_account_type_tree_view" model="ir.ui.view">
+        <field name="name">kmn.account.type.tree.view</field>
+        <field name="model">kmn.account.type</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="kmn_account_type_view_filter" model="ir.ui.view">
+        <field name="name">kmn.account.type.view.filter</field>
+        <field name="model">kmn.account.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record id="kmn_account_type_action" model="ir.actions.act_window">
+        <field name="name">Types de Comptes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kmn.account.type</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="kmn_account_type_view_filter"/>
+    </record>
+
+    <record id="kmn_institutions_action" model="ir.actions.act_window">
+        <field name="name">Institutions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="kmn_tiers_action" model="ir.actions.act_window">
+        <field name="name">Tiers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <record id="kmn_account_move_tree_view" model="ir.ui.view">
+        <field name="name">kmn.account.move.tree.view</field>
+        <field name="model">kmn.account.move</field>
+        <field name="arch" type="xml">
+            <!-- colors="orange:state==False;red:state=='brouillon'" -->
+            <tree string="Mouvements" decoration-danger="state=='brouillon'">
+                <field name="post_date" />
+                <field name="payee_id" />
+                <field name="account1_id" />
+                <field name="account2_id" />
+                <field name="debit"  sum="Total"/>
+                <field name="credit" sum="Total"/>
+                <field name="memo" />
+                <field name="date_creation"     readonly="1" />
+                <field name="date_modification" readonly="1" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id="kmn_account_move_from_view" model="ir.ui.view">
+        <field name="name">kmn.account.move.form.view</field>
+        <field name="model">kmn.account.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <field name="state" widget="statusbar"  clickable="True" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="payee_id" />
+                        <field name="reconcile_date" />
+                        <field name="reconcile_flag" />
+                        <field name="value" />
+                        <field name="memo" />
+                        <field name="account1_id" />
+                        <field name="account2_id" />
+                        <field name="check_number" />
+                        <field name="post_date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="kmn_account_move_pivot_view" model="ir.ui.view">
+        <field name="name">kmn_account_move_pivot_view</field>
+        <field name="model">kmn.account.move</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <!-- <field name="date_invoice"   type="col"/> -->
+                <field name="post_date"     type="row"/>
+                <field name="value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- <record id="is_account_invoice_line_graph" model="ir.ui.view">
+        <field name="name">is_account_invoice_line_graph</field>
+        <field name="model">is.account.invoice.line</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="date_invoice"   type="row"/>
+                <field name="price_subtotal" type="measure"/>
+            </graph>
+        </field>
+    </record> -->
+
+
+    <record id="kmn_account_move_view_filter" model="ir.ui.view">
+        <field name="name">kmn.account.move.view.filter</field>
+        <field name="model">kmn.account.move</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="payee_id" />
+                <field name="account_id" string="Compte"          filter_domain="['|',('account1_id', 'ilike', self),('account2_id', 'ilike', self)]"/>
+                <field name="account_id" string="Tous les champs" filter_domain="['|','|','|',('memo', 'ilike', self),('payee_id', 'ilike', self),('account1_id', 'ilike', self),('account2_id', 'ilike', self)]"/>
+                <field name="memo" />
+                <filter string="Brouillon" name="state_brouillon"   domain="[('state','=','brouillon')]"/>
+                <filter string="Validé"    name="state_valide"      domain="[('state','=','valide')]"/>
+           </search>
+        </field>
+    </record>
+    <record id="kmn_account_move_action" model="ir.actions.act_window">
+        <field name="name">Opérations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kmn.account.move</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="search_view_id" ref="kmn_account_move_view_filter"/>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kmn_account_type,access_kmn_account_type,model_kmn_account_type,base.group_user,1,1,1,1
+access_kmn_accounts,access_kmn_accounts,model_kmn_accounts,base.group_user,1,1,1,1
+access_kmn_account_move,access_kmn_account_move,model_kmn_account_move,base.group_user,1,1,1,1
+access_is_kmymoney_report,access_is_kmymoney_report,model_is_kmymoney_report,base.group_user,1,0,0,0
+access_kmn_solde_par_mois_report,access_kmn_solde_par_mois_report,model_kmn_solde_par_mois_report,base.group_user,1,0,0,0
+access_kmn_solde_par_an_report,access_kmn_solde_par_an_report,model_kmn_solde_par_an_report,base.group_user,1,0,0,0
+
+access_kmn_solde_par_operation_report,access_kmn_solde_par_operation_report,model_kmn_solde_par_operation_report,base.group_user,1,0,0,0

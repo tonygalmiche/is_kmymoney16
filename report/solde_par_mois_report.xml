@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="kmn_solde_par_mois_report_pivot" model="ir.ui.view">
+         <field name="name">kmn_solde_par_mois_report_pivot</field>
+         <field name="model">kmn.solde.par.mois.report</field>
+         <field name="arch" type="xml">
+             <pivot>
+                 <field name="compte" type="row"/>
+                 <field name="mois"   type="col"/>
+                 <field name="solde"  type="measure"/>
+             </pivot>
+         </field>
+    </record>
+    <record id="kmn_solde_par_mois_report_graph" model="ir.ui.view">
+        <field name="name">kmn_solde_par_mois_report_graph</field>
+        <field name="model">kmn.solde.par.mois.report</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="mois"   type="col"/>
+                <field name="compte" type="row"/>
+                <field name="solde"  type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="kmn_solde_par_mois_report_action" model="ir.actions.act_window">
+        <field name="name">Solde par mois</field>
+        <field name="res_model">kmn.solde.par.mois.report</field>
+        <field name="view_mode">graph,pivot</field>
+    </record>
+</data>
+</odoo>

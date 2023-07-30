@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="kmn_menu_top" name="kMyMoney"                       sequence="10"/>
+    <menuitem id="kmn_menu"     name="kMyMoney"      parent="kmn_menu_top" sequence="10"/>
+
+    <menuitem id="kmn_accounts_menu"                 parent="kmn_menu" action="kmn_accounts_action"     sequence="10"/>
+    <menuitem id="kmn_account_move_menu"             parent="kmn_menu" action="kmn_account_move_action" sequence="15"/>
+    <menuitem id="kmn_account_type_menu"             parent="kmn_menu" action="kmn_account_type_action" sequence="20"/>
+    <menuitem id="kmn_institutions_menu"             parent="kmn_menu" action="kmn_institutions_action" sequence="30"/>
+    <menuitem id="kmn_tiers_menu"                    parent="kmn_menu" action="kmn_tiers_action"        sequence="40"/>
+
+    <menuitem id="is_kmymoney_report_main_menu"   name="Report" parent="kmn_menu_top" sequence="20"/>
+    <menuitem id="kmn_solde_par_mois_report_menu"               action="kmn_solde_par_mois_report_action"      parent="is_kmymoney_report_main_menu" sequence="10" />
+    <menuitem id="kmn_solde_par_an_report_menu"                 action="kmn_solde_par_an_report_action"        parent="is_kmymoney_report_main_menu" sequence="20" />
+    <menuitem id="is_kmymoney_report_menu"        name="Report" action="is_kmymoney_report_action"             parent="is_kmymoney_report_main_menu" sequence="30"/>
+    <menuitem id="kmn_solde_par_operation_report_menu"          action="kmn_solde_par_operation_report_action" parent="is_kmymoney_report_main_menu" sequence="40" />
+
+    <menuitem id="is_kmymoney_graph_main_menu"   name="Graph" parent="kmn_menu_top" sequence="30"/>
+
+    <menuitem  name="Solde par année et par compte" id="solde_par_annee_compte_menu" action="solde_par_annee_compte_action" parent="is_kmymoney_graph_main_menu" sequence="10"/>
+
+
+    
+
+</odoo>

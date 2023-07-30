@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="kmn_solde_par_operation_report_tree_view" model="ir.ui.view">
+        <field name="name">kmn_solde_par_operation_report_tree_view</field>
+        <field name="model">kmn.solde.par.operation.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="post_date" />
+                <field name="payee_id" />
+                <field name="account_id" />
+                <field name="institution_id" />
+                <field name="memo" optional="show"/>
+                <field name="solde" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kmn_solde_par_operation_report_pivot" model="ir.ui.view">
+         <field name="name">kmn_solde_par_operation_report_pivot</field>
+        <field name="model">kmn.solde.par.operation.report</field>
+         <field name="arch" type="xml">
+             <pivot>
+                 <field name="account_id" type="row"/>
+                 <field name="post_date"  type="col" interval="year"/>
+                 <field name="solde"  type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <record id="kmn_solde_par_operation_report_graph" model="ir.ui.view">
+        <field name="name">kmn_solde_par_operation_report_graph</field>
+       <field name="model">kmn.solde.par.operation.report</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="account_id" type="row"/>
+                <field name="post_date"  type="col" interval="year"/>
+                <field name="solde"  type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+
+    <record id="kmn_solde_par_operation_report_filter" model="ir.ui.view">
+        <field name="name">kmn_solde_par_operation_report_filter</field>
+        <field name="model">kmn.solde.par.operation.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="post_date" />
+                <field name="payee_id" />
+                <field name="account_id" />
+                <field name="institution_id"/>
+                <field name="solde" />
+                <filter string="Institution n'est pas définie" name="institution_non_definie" domain="[('institution_id','=',False)]"/>
+                <filter string="Institution est définie"       name="institution_definie"     domain="[('institution_id','!=',False)]"/>
+                <group expand="0" string="Regrouper par...">
+                    <filter name="group_payee_id"   string="Tiers"   context="{'group_by':'payee_id'}"/>
+                    <filter name="group_account_id" string="Compte"  context="{'group_by':'account_id'}"/>
+                    <filter name="group_post_date"  string="Date"    context="{'group_by':'post_date'}"/>
+               </group>
+           </search>
+        </field>
+    </record>
+    <record id="kmn_solde_par_operation_report_action" model="ir.actions.act_window">
+        <field name="name">Solde par opération</field>
+        <field name="res_model">kmn.solde.par.operation.report</field>
+        <field name="view_mode">tree,pivot,graph</field>
+    </record>
+
+
+
+    <record id="solde_par_annee_compte_graph" model="ir.ui.view">
+        <field name="name">kmn_solde_par_operation_report_graph</field>
+       <field name="model">kmn.solde.par.operation.report</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="post_date"  type="col" interval="year"/>
+                <field name="account_id" type="row"/>
+                <field name="solde"      type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="solde_par_annee_compte_action" model="ir.actions.act_window">
+        <field name="name">Solde par année et par compte</field>
+        <field name="res_model">kmn.solde.par.operation.report</field>
+        <field name="view_mode">graph,pivot,tree</field>
+        <field name="view_id" ref="solde_par_annee_compte_graph"/>
+        <field name="domain">[('institution_id','=',False)]</field>
+    </record>
+
+
+
+
+
+
+
+
+
+
+</data>
+</odoo>
