@@ -5,5 +5,5 @@ access_kmn_account_move,access_kmn_account_move,model_kmn_account_move,base.grou
 access_is_kmymoney_report,access_is_kmymoney_report,model_is_kmymoney_report,base.group_user,1,0,0,0
 access_kmn_solde_par_mois_report,access_kmn_solde_par_mois_report,model_kmn_solde_par_mois_report,base.group_user,1,0,0,0
 access_kmn_solde_par_an_report,access_kmn_solde_par_an_report,model_kmn_solde_par_an_report,base.group_user,1,0,0,0
-
 access_kmn_solde_par_operation_report,access_kmn_solde_par_operation_report,model_kmn_solde_par_operation_report,base.group_user,1,0,0,0
+access_is_suivi_sante,access_is_suivi_sante,model_is_suivi_sante,base.group_user,1,1,1,1

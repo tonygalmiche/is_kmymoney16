@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  is_suivi_sante -->
+    <record id="is_suivi_sante_tree_view" model="ir.ui.view">
+        <field name="name">is.suivi.sante.tree.view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+                <field name="poids"           optional="show"/>
+                <field name="poids_objectif"  optional="show" />
+                <field name="poids_ecart"     optional="show"/>
+
+                <field name="fc_r"            optional="show"/>
+                <field name="fc_r_objectif"   optional="show"/>
+                <field name="fc_r_ecart"      optional="show"/>
+
+                <field name="fc_s"            optional="show"/>
+                <field name="fc_s_objectif"   optional="show"/>
+                <field name="fc_s_ecart"      optional="show"/>
+                <field name="fc_s_dessus"     optional="show"/>
+
+                <field name="sommeil_profond" optional="show"  widget="float_time"/>
+                <field name="ronflement"      optional="show"  widget="float_time"/>
+
+                <field name="vfc"             optional="show"/>
+                <field name="vfc_objectif"    optional="show"/>
+                <field name="vfc_ecart"       optional="show"/>
+
+                <field name="commentaire"     optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_suivi_sante_from_view" model="ir.ui.view">
+        <field name="name">is.suivi.sante.form.view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="poids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_suivi_sante_pivot_view" model="ir.ui.view">
+        <field name="name">is_suivi_sante_pivot_view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="name"  type="row"  interval="day"/>
+                <field name="poids" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_suivi_sante_view_filter" model="ir.ui.view">
+        <field name="name">is.suivi.sante.view.filter</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="poids" />
+           </search>
+        </field>
+    </record>
+    <record id="is_suivi_sante_action" model="ir.actions.act_window">
+        <field name="name">Suivi santé</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.suivi.sante</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+    </record>
+
+
+    <!-- Suivi poids -->
+    <record id="is_suivi_poids_graph_view" model="ir.ui.view">
+        <field name="name">is_suivi_poids_graph_view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <graph type="line">
+                <field name="name"        interval="day"/>
+                <field name="poids_ecart" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_suivi_poids_action" model="ir.actions.act_window">
+        <field name="name">Suivi poids</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.suivi.sante</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('poids','&gt;',0)]</field>
+        <field name="view_id" ref="is_suivi_poids_graph_view"/>
+    </record>
+
+    <!-- Suivi FC-R -->
+    <record id="is_suivi_fcr_graph_view" model="ir.ui.view">
+        <field name="name">is_suivi_fcr_graph_view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"          interval="day"/>
+                <field name="fc_r_ecart"    type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_suivi_fcr_action" model="ir.actions.act_window">
+        <field name="name">Suivi FC-R</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.suivi.sante</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('fc_r','&gt;',0)]</field>
+        <field name="view_id" ref="is_suivi_fcr_graph_view"/>
+    </record>
+
+
+
+    <!-- Suivi FC-S -->
+    <record id="is_suivi_fcs_graph_view" model="ir.ui.view">
+        <field name="name">is_suivi_fcs_graph_view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"          interval="day"/>
+                <field name="fc_s_ecart"    type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_suivi_fcs_action" model="ir.actions.act_window">
+        <field name="name">Suivi FC-S</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.suivi.sante</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('fc_s','&gt;',0)]</field>
+        <field name="view_id" ref="is_suivi_fcs_graph_view"/>
+    </record>
+
+
+    <!-- Suivi VFC -->
+    <record id="is_suivi_vfc_graph_view" model="ir.ui.view">
+        <field name="name">is_suivi_vfc_graph_view</field>
+        <field name="model">is.suivi.sante</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"      interval="day"/>
+                <field name="vfc_ecart" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_suivi_vfc_action" model="ir.actions.act_window">
+        <field name="name">Suivi FVC</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.suivi.sante</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('vfc','&gt;',0)]</field>
+        <field name="view_id" ref="is_suivi_vfc_graph_view"/>
+    </record>
+
+
+</odoo>

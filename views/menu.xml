@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- kMyMoney -->
     <menuitem id="kmn_menu_top" name="kMyMoney"                       sequence="10"/>
     <menuitem id="kmn_menu"     name="kMyMoney"      parent="kmn_menu_top" sequence="10"/>
 
@@ -20,6 +22,16 @@
     <menuitem  name="Solde par année et par compte" id="solde_par_annee_compte_menu" action="solde_par_annee_compte_action" parent="is_kmymoney_graph_main_menu" sequence="10"/>
 
 
-    
+    <!-- Suivi santé -->
+    <menuitem id="is_suivi_sante_top_menu"  name="Suivi santé" sequence="20"/>
+    <menuitem id="is_suivi_sante_main_menu" name="Suivi santé" parent="is_suivi_sante_top_menu"  sequence="10"/>
+    <menuitem id="is_suivi_sante_menu"      name="Suivi santé" parent="is_suivi_sante_main_menu" action="is_suivi_sante_action" sequence="10"/>
+    <menuitem id="is_suivi_poids_menu"      name="Suivi poids" parent="is_suivi_sante_main_menu" action="is_suivi_poids_action" sequence="20"/>
+    <menuitem id="is_suivi_fcr_menu"        name="Suivi FC-R"  parent="is_suivi_sante_main_menu" action="is_suivi_fcr_action"   sequence="30"/>
+    <menuitem id="is_suivi_fcs_menu"        name="Suivi FC-S"  parent="is_suivi_sante_main_menu" action="is_suivi_fcs_action"   sequence="40"/>
+    <menuitem id="is_suivi_vfc_menu"        name="Suivi VFC"   parent="is_suivi_sante_main_menu" action="is_suivi_vfc_action"   sequence="50"/>
+
+
+
 
 </odoo>
