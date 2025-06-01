@@ -314,10 +314,13 @@ class kmn_account_move(models.Model):
     @api.onchange('payee_id')
     def onchange_etat(self):
         for obj in self:
-            domain = [('payee_id', '=', obj.payee_id.id)]
-            lines=self.env['kmn.account.move'].search(domain, order='post_date desc', limit=1)
-            for line in lines:
-                obj.account_id = line.account_id.id
+            account_id = False
+            if obj.payee_id.id:
+                domain = [('payee_id', '=', obj.payee_id.id)]
+                lines=self.env['kmn.account.move'].search(domain, order='post_date desc', limit=1)
+                for line in lines:
+                    account_id = line.account_id.id
+            obj.account_id = account_id
 
 
     @api.model_create_multi
