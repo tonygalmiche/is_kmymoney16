@@ -1,13 +1,21 @@
 from odoo import models, fields, api # type: ignore
 
 #TODO : 
-# - Ajouter quantité d'alcool
 # - Ajouter les calories depenses, abosdbées et l'écart
-# - Ajouter jour de la semaine
 # - Ajouter une valeur pour indiquer ma forme avec une note entre 1 et 5
 # - Faire une requette pour avoir une valeur par ligne et par jour pour avoir pluseurs valeurs sur un même graphique
-# - Mettre les objetifs dans la fiche de la société pour pouvoir les modifier
 # - Calculer une note personnelle en fonction des différentes valeurs
+
+
+_JOURS=[
+    ('lundi','Lundi'),
+    ('mardi','Mardi'),
+    ('mercredi','Mercredi'),
+    ('jeudi','Jeudi'),
+    ('vendredi','Vendredi'),
+    ('samedi','Samedi'),
+    ('dimanche','Dimanche'),
+]
 
 
 class is_suivi_sante(models.Model):
@@ -17,6 +25,7 @@ class is_suivi_sante(models.Model):
     _sql_constraints = [('name_uniq','UNIQUE(name)', 'Cette date existe déjà')] 
 
     name           = fields.Date(string="Date", required=True, index=True)
+    jour           = fields.Selection(_JOURS, "Jour", store=True, compute='_compute_jour')
     poids          = fields.Float(string="Poids"        , digits=(12, 1))
     poids_objectif = fields.Float(string="Poids ojectif", digits=(12, 1), default=80)
     poids_ecart    = fields.Float(string="Poids écart"  , digits=(12, 1), store=True, compute='_compute_poids_ecart')
@@ -37,8 +46,19 @@ class is_suivi_sante(models.Model):
     vfc_objectif    = fields.Integer(string="VFC ojectif", default=35)
     vfc_ecart       = fields.Integer(string="VFC écart"  , store=True, compute='_compute_vfc_ecart')
 
+    alcool          = fields.Float(string="Alcool", help="Faire la somme des verres sur la base de 25cl à 5°", digits=(12, 1))
+    alcool_detail   = fields.Text(string="Détail Alcool")
+
     commentaire    = fields.Text(string="Commentaire")
 
+
+    @api.depends('name')
+    def _compute_jour(self):
+        for obj in self:
+            jour=False
+            if obj.name:
+                jour = obj.name.strftime('%A')
+            obj.jour = jour 
 
     @api.depends('poids','poids_objectif')
     def _compute_poids_ecart(self):
@@ -58,5 +78,5 @@ class is_suivi_sante(models.Model):
     @api.depends('vfc','vfc_objectif')
     def _compute_vfc_ecart(self):
         for obj in self:
-            obj.vfc_ecart = obj.vfc_objectif - obj.vfc
+            obj.vfc_ecart = -(obj.vfc - obj.vfc_objectif)
 

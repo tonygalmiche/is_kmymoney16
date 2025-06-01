@@ -15,6 +15,7 @@ InfoSaône - Module Odoo 16 Module Odoo kMyMoney
     ],
     'data' : [
         'security/ir.model.access.csv',
+        'views/res_company_view.xml',
         'views/is_kmymoney_view.xml',
         'views/is_kmymoney_report_view.xml',
         'views/is_suivi_sante_view.xml',

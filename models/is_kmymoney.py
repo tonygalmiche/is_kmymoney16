@@ -311,16 +311,13 @@ class kmn_account_move(models.Model):
             account.last_post_date=vals["post_date"]
 
 
-    # @api.model
-    # def create(self,vals):
-    #     cr,uid,context,su = self.env.args
-    #     self._set_last_post_date(vals)
-    #     if context.get('active_model', False) == 'kmn.accounts' and context.get('active_id', False):
-    #         vals.update({
-    #             'account1_id': context.get('active_id', False),
-    #         })
-    #     vals = super(kmn_account_move, self).create(vals)
-    #     return vals
+    @api.onchange('payee_id')
+    def onchange_etat(self):
+        for obj in self:
+            domain = [('payee_id', '=', obj.payee_id.id)]
+            lines=self.env['kmn.account.move'].search(domain, order='post_date desc', limit=1)
+            for line in lines:
+                obj.account_id = line.account_id.id
 
 
     @api.model_create_multi

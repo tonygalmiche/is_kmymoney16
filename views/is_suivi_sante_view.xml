@@ -7,6 +7,12 @@
         <field name="arch" type="xml">
             <tree editable="top">
                 <field name="name" />
+                <field 
+                    name="jour" 
+                    widget="badge" 
+                    decoration-info="jour in ('vendredi','lundi')"
+                    decoration-warning="jour in ('samedi','dimanche')"
+                />
                 <field name="poids"           optional="show"/>
                 <field name="poids_objectif"  optional="show" />
                 <field name="poids_ecart"     optional="show"/>
@@ -26,6 +32,9 @@
                 <field name="vfc"             optional="show"/>
                 <field name="vfc_objectif"    optional="show"/>
                 <field name="vfc_ecart"       optional="show"/>
+
+                <field name="alcool"          optional="show"/>
+                <field name="alcool_detail"   optional="show"/>
 
                 <field name="commentaire"     optional="show"/>
             </tree>
